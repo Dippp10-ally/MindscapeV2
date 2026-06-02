@@ -6,7 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Heart, Mail, Lock, User, UserCheck } from "lucide-react";
+import { Eye,EyeOff,Heart, Mail, Lock, User, UserCheck } from "lucide-react";
 
 import { useNavigate } from "react-router-dom";
 import { fetchMe } from "@/lib/auth";
@@ -26,6 +26,10 @@ const AuthPage = () => {
     confirmPassword: "",
     role: ""
   });
+
+  const [showLoginPassword, setShowLoginPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -182,21 +186,32 @@ const AuthPage = () => {
                     </div>
                   </div>
 
-                  <div className="space-y-2">
-                    <Label htmlFor="login-password">Password</Label>
-                    <div className="relative">
-                      <Lock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                      <Input
-                        id="login-password"
-                        type="password"
-                        placeholder="Enter your password"
-                        className="pl-10 bg-background/50 border-border/20"
-                        value={loginData.password}
-                        onChange={(e) => setLoginData({...loginData, password: e.target.value})}
-                        required
-                      />
-                    </div>
-                  </div>
+                 <div className="space-y-2">
+  <Label htmlFor="login-password">Password</Label>
+
+  <div className="relative">
+    <Lock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+
+    <Input
+      id="login-password"
+      type={showLoginPassword ? "text" : "password"}
+      placeholder="Enter your password"
+      className="pl-10 pr-10 bg-background/50 border-border/20"
+      value={loginData.password}
+      onChange={(e) => setLoginData({...loginData, password: e.target.value})}
+      required
+    />
+
+    <button
+      type="button"
+      onClick={() => setShowLoginPassword(!showLoginPassword)}
+      aria-label={showLoginPassword ? "Hide password" : "Show password"}
+      className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground"
+    >
+      {showLoginPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+    </button>
+  </div>
+</div>
 
                   <div className="space-y-2">
                     <Label htmlFor="login-role">I am a</Label>
@@ -246,6 +261,7 @@ const AuthPage = () => {
                     <div className="relative">
                       <User className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                       <Input
+                      
                         id="signup-name"
                         type="text"
                         placeholder="Your full name"
@@ -287,36 +303,56 @@ const AuthPage = () => {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="signup-password">Password</Label>
-                    <div className="relative">
-                      <Lock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                      <Input
-                        id="signup-password"
-                        type="password"
-                        placeholder="Create a password"
-                        className="pl-10 bg-background/50 border-border/20"
-                        value={signupData.password}
-                        onChange={(e) => setSignupData({...signupData, password: e.target.value})}
-                        required
-                      />
-                    </div>
-                  </div>
+  <Label htmlFor="signup-password">Password</Label>
+  <div className="relative">
+    <Lock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+
+    <Input
+      id="signup-password"
+      type={showPassword ? "text" : "password"}
+      placeholder="Create a password"
+      className="pl-10 pr-10 bg-background/50 border-border/20"
+      value={signupData.password}
+      onChange={(e) => setSignupData({...signupData, password: e.target.value})}
+      required
+    />
+
+    <button
+      type="button"
+      onClick={() => setShowPassword(!showPassword)}
+      className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground"
+    >
+      {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+    </button>
+
+  </div>
+</div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="signup-confirm">Confirm Password</Label>
-                    <div className="relative">
-                      <Lock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                      <Input
-                        id="signup-confirm"
-                        type="password"
-                        placeholder="Confirm your password"
-                        className="pl-10 bg-background/50 border-border/20"
-                        value={signupData.confirmPassword}
-                        onChange={(e) => setSignupData({...signupData, confirmPassword: e.target.value})}
-                        required
-                      />
-                    </div>
-                  </div>
+  <Label htmlFor="signup-confirm">Confirm Password</Label>
+  <div className="relative">
+    <Lock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+
+    <Input
+      id="signup-confirm"
+      type={showConfirmPassword ? "text" : "password"}
+      placeholder="Confirm your password"
+      className="pl-10 pr-10 bg-background/50 border-border/20"
+      value={signupData.confirmPassword}
+      onChange={(e) => setSignupData({...signupData, confirmPassword: e.target.value})}
+      required
+    />
+
+    <button
+      type="button"
+      onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+      className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground"
+    >
+      {showConfirmPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+    </button>
+
+  </div>
+</div>
 
                   <Button 
                     type="submit" 
