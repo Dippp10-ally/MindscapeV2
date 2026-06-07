@@ -177,17 +177,17 @@ export default function ChatPage() {
 
           {/* Quick Actions */}
           <div className="p-4 border-t border-border/20">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mb-4">
+            <div className="flex flex-wrap justify-center gap-2 mb-4">
               {quickActions.map((action, index) => (
                 <Button
                   key={index}
                   variant="outline"
                   size="sm"
-                  className="text-xs glass hover-glass"
+                  className="flex items-center gap-2 h-auto py-2 px-3 text-xs glass hover-glass whitespace-normal text-left"
                   onClick={() => setInputValue(action.text)}
                 >
-                  <action.icon className="w-3 h-3 mr-1" />
-                  {action.text}
+                  <action.icon className="w-4 h-4 shrink-0" />
+                  <span>{action.text}</span>
                 </Button>
               ))}
             </div>
